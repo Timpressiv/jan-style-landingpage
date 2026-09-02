@@ -1,0 +1,504 @@
+/* ============================================================
+   Jan Style — Design system (v3: edles Schwarz/Gold + Wasserzeichen)
+   History: v1 drenched the whole page in near-black hexagon motifs
+   (too dark, too much contrast). v2 went fully light/modern (client:
+   too plain, "abgespaced" in a different way, wanted more of the
+   real salon's identity back). v3 is the client's explicit request:
+   an elegant black/gold world with the real logo permanently present
+   as a fixed, very low-opacity watermark — refined so it never
+   fights with running text. See index.html's opening comment.
+   ============================================================ */
+
+:root {
+  /* ground — deep, warm near-black, never pure #000 */
+  --bg: #100d0a;
+  --bg-panel: #1b160f;
+  --bg-panel-2: #221b12;
+
+  /* gold — matte/antique, not a glowing neon gradient */
+  --gold: #b9922f;
+  --gold-bright: #d9b869;
+  --gold-dim: #8a6d24;
+  --gold-line: rgba(185, 146, 47, 0.3);
+  --gold-line-soft: rgba(185, 146, 47, 0.14);
+  --gold-soft: rgba(185, 146, 47, 0.1);
+
+  /* ink */
+  --ink: #f1ead9;
+  --ink-dim: #b7ab94;
+  --ink-faint: #8a7c63;
+
+  --line: rgba(185, 146, 47, 0.16);
+
+  --font-display: 'Marcellus', 'Iowan Old Style', Georgia, serif;
+  --font-body: 'Jost', 'Helvetica Neue', Arial, sans-serif;
+
+  --measure: 62ch;
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-full: 999px;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 20px 44px -16px rgba(0, 0, 0, 0.55);
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --container: 1240px;
+  --pad-inline: clamp(1.25rem, 4vw, 3.5rem);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  background: var(--bg);
+  color-scheme: dark;
+  scroll-behavior: smooth;
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+
+::selection { background: var(--gold); color: #14110a; }
+:focus-visible { outline: 2px solid var(--gold-bright); outline-offset: 3px; border-radius: 3px; }
+
+.skip-link {
+  position: absolute;
+  left: -999px;
+  top: 0;
+  background: var(--gold-bright);
+  color: #17130b;
+  padding: 0.8rem 1.2rem;
+  z-index: 100;
+  border-radius: var(--radius-sm);
+}
+.skip-link:focus {
+  left: 1rem;
+  top: 1rem;
+}
+
+* { scrollbar-color: var(--gold-dim) var(--bg); scrollbar-width: thin; }
+*::-webkit-scrollbar { width: 10px; height: 10px; }
+*::-webkit-scrollbar-track { background: var(--bg); }
+*::-webkit-scrollbar-thumb { background: var(--gold-dim); border: 2px solid var(--bg); border-radius: 8px; }
+*::-webkit-scrollbar-thumb:hover { background: var(--gold); }
+
+.wrap { max-width: var(--container); margin-inline: auto; padding-inline: var(--pad-inline); }
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  margin: 0;
+  color: var(--ink);
+}
+h2 { text-wrap: balance; }
+p { margin: 0; }
+
+/* ---------------------------------------------------------------
+   Watermark — the persistent logo. Fixed to the viewport (not the
+   document), so it stays put as the page scrolls. Kept desaturated,
+   softly blurred, and very low-opacity on purpose: this is the lever
+   that keeps it from fighting with running text — never raise the
+   opacity without also checking it against the longest text section.
+   --------------------------------------------------------------- */
+
+.watermark {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  overflow: hidden;
+}
+.watermark img {
+  width: min(60vw, 620px);
+  height: auto;
+  opacity: 0.08;
+  filter: grayscale(1) brightness(1.9) blur(0.5px);
+}
+@media (max-width: 700px) {
+  .watermark img { width: min(120vw, 520px); }
+}
+
+.site-header, main, .site-footer { position: relative; z-index: 1; }
+
+/* ---------------------------------------------------------------
+   Buttons
+   --------------------------------------------------------------- */
+
+.btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.9rem 1.85rem;
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  border: none;
+  border-radius: var(--radius-full);
+  transition: transform 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out), background-color 0.3s var(--ease-out), border-color 0.3s var(--ease-out), color 0.3s var(--ease-out);
+}
+.btn:hover { transform: translateY(-2px); }
+.btn:active { transform: translateY(0); }
+
+.btn--primary {
+  color: #17130b;
+  background: var(--gold-bright);
+  box-shadow: var(--shadow-sm);
+}
+.btn--primary:hover { background: var(--gold); }
+
+.btn--ghost {
+  color: var(--ink);
+  background: transparent;
+  box-shadow: inset 0 0 0 1px var(--gold-line-soft);
+}
+.btn--ghost:hover { box-shadow: inset 0 0 0 1px var(--gold-line); color: var(--gold-bright); }
+
+/* ---------------------------------------------------------------
+   Header / nav
+   --------------------------------------------------------------- */
+
+.site-header {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 50;
+  padding-block: 0.95rem;
+  background: rgba(16, 13, 10, 0.92);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.4s var(--ease-out);
+}
+.site-header.is-scrolled { border-bottom-color: var(--line); }
+
+.site-header .wrap { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; }
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+}
+.brand__mark { width: 30px; height: 42px; object-fit: contain; flex-shrink: 0; }
+
+.nav { display: flex; align-items: center; gap: 2rem; }
+.nav__links { display: flex; gap: 2rem; list-style: none; margin: 0; padding: 0; }
+.nav__links a {
+  font-size: 0.88rem;
+  letter-spacing: 0.03em;
+  color: var(--ink-dim);
+  position: relative;
+  padding-block: 0.3rem;
+  transition: color 0.25s var(--ease-out);
+}
+.nav__links a::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 100%; bottom: 0;
+  height: 1px;
+  background: var(--gold-bright);
+  transition: right 0.3s var(--ease-out);
+}
+.nav__links a:hover { color: var(--ink); }
+.nav__links a:hover::after { right: 0; }
+
+.nav__toggle {
+  display: none;
+  width: 42px; height: 42px;
+  border: 1px solid var(--gold-line-soft);
+  background: transparent;
+  border-radius: var(--radius-full);
+  color: var(--gold-bright);
+  align-items: center; justify-content: center;
+  cursor: pointer;
+  position: relative; z-index: 46;
+}
+.nav__toggle svg { width: 18px; height: 18px; overflow: visible; }
+.nav__toggle .bar { transform-origin: 12px 12px; transition: transform 0.35s var(--ease-out), opacity 0.25s var(--ease-out); }
+.nav__toggle[aria-expanded="true"] .bar--1 { transform: translateY(6px) rotate(45deg); }
+.nav__toggle[aria-expanded="true"] .bar--2 { opacity: 0; }
+.nav__toggle[aria-expanded="true"] .bar--3 { transform: translateY(-6px) rotate(-45deg); }
+
+@media (max-width: 860px) {
+  .nav__links {
+    position: fixed;
+    inset: 0;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2.2rem;
+    background: var(--bg);
+    transform: translateY(-100%);
+    transition: transform 0.4s var(--ease-out);
+    z-index: 40;
+  }
+  .nav__links a { font-size: 1.2rem; color: var(--ink); }
+  .nav__links.is-open { transform: translateY(0); }
+  .nav__toggle { display: inline-flex; z-index: 45; }
+  .nav__cta { display: none; }
+}
+
+/* ---------------------------------------------------------------
+   Hero — kept plain and quiet; the watermark supplies the presence
+   --------------------------------------------------------------- */
+
+.hero {
+  position: relative;
+  padding-top: clamp(8.5rem, 15vw, 11rem);
+  padding-bottom: clamp(4.5rem, 9vw, 7rem);
+}
+.hero__inner {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.6rem;
+}
+.hero__mark {
+  width: clamp(150px, 19vw, 230px);
+  height: auto;
+  margin-bottom: 0.3rem;
+  filter: drop-shadow(0 14px 34px rgba(0, 0, 0, 0.45));
+}
+.hero__title {
+  font-size: clamp(2.5rem, 5.6vw, 4rem);
+  line-height: 1.12;
+  max-width: 17ch;
+}
+.hero__title em { font-style: normal; color: var(--gold-bright); }
+
+.hero__lede { max-width: 46ch; font-size: clamp(1.02rem, 1.5vw, 1.15rem); color: var(--ink-dim); }
+
+.hero__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; margin-top: 0.4rem; }
+
+.hero__badge {
+  margin-top: 1.2rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.7rem 1.3rem 0.7rem 0.7rem;
+  background: var(--bg-panel);
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-sm), inset 0 0 0 1px var(--line);
+}
+.hero__badge-num {
+  width: 42px; height: 42px;
+  display: grid; place-items: center;
+  background: var(--gold-soft);
+  color: var(--gold-bright);
+  border-radius: var(--radius-full);
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  flex-shrink: 0;
+}
+.hero__badge-text { text-align: left; font-size: 0.85rem; color: var(--ink-dim); line-height: 1.35; }
+.hero__badge-text strong { display: block; color: var(--ink); font-size: 1rem; font-family: var(--font-display); }
+
+/* ---------------------------------------------------------------
+   Section scaffolding — sections stay transparent so the fixed
+   watermark reads through consistently; only discrete surfaces
+   (cards, panels) go opaque, which is what keeps dense text calm.
+   --------------------------------------------------------------- */
+
+.section { position: relative; padding-block: clamp(4.5rem, 9vw, 7.5rem); border-top: 1px solid var(--line); }
+.section--tight { padding-block: clamp(2.5rem, 5vw, 4rem); }
+
+.section__head { max-width: 58ch; margin-bottom: clamp(2.5rem, 5vw, 4rem); }
+.section__head h2 { font-size: clamp(1.85rem, 3.1vw, 2.5rem); margin-bottom: 0.8rem; }
+.section__head p { color: var(--ink-dim); font-size: 1.03rem; max-width: 52ch; }
+
+.reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out); }
+.reveal.is-visible { opacity: 1; transform: translateY(0); }
+@media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
+
+/* ---------------------------------------------------------------
+   Trust strip
+   --------------------------------------------------------------- */
+
+.trust { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.25rem; }
+.trust__item {
+  background: var(--bg-panel);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm), inset 0 0 0 1px var(--line);
+  padding: 1.7rem 1.5rem;
+  display: flex; flex-direction: column; gap: 0.35rem;
+}
+.trust__num { font-family: var(--font-display); font-size: clamp(1.7rem, 2.6vw, 2.2rem); color: var(--gold-bright); }
+.trust__label { color: var(--ink-dim); font-size: 0.87rem; }
+
+/* ---------------------------------------------------------------
+   Services
+   --------------------------------------------------------------- */
+
+.cluster { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.4rem; }
+.svc {
+  position: relative;
+  display: block;
+  padding: 2.1rem 1.8rem 1.8rem;
+  background: var(--bg-panel);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm), inset 0 0 0 1px var(--line);
+  cursor: pointer;
+  transition: box-shadow 0.3s var(--ease-out), transform 0.3s var(--ease-out), background-color 0.3s var(--ease-out);
+}
+.svc:hover, .svc:focus-visible {
+  box-shadow: var(--shadow-md), inset 0 0 0 1px var(--gold-line);
+  transform: translateY(-3px);
+  background: var(--bg-panel-2);
+}
+.svc__icon {
+  width: 48px; height: 48px;
+  margin-bottom: 1.2rem;
+  display: grid; place-items: center;
+  background: var(--gold-soft);
+  border-radius: var(--radius-sm);
+}
+.svc__icon svg { width: 22px; height: 22px; stroke: var(--gold-bright); }
+.svc h3 { font-size: 1.3rem; margin-bottom: 0.5rem; }
+.svc p { color: var(--ink-dim); font-size: 0.94rem; margin-bottom: 1.2rem; }
+.svc__list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+.svc__list li { display: flex; justify-content: space-between; gap: 1rem; padding: 0.68rem 0; border-bottom: 1px solid var(--line); font-size: 0.92rem; }
+.svc__list li span:first-child { color: var(--ink); }
+.svc__list li span:last-child { font-variant-numeric: tabular-nums; color: var(--gold-bright); white-space: nowrap; }
+.svc__cta {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  margin-top: 1.1rem;
+  font-size: 0.83rem;
+  color: var(--gold-bright);
+  opacity: 0;
+  transform: translateX(-6px);
+  transition: opacity 0.3s var(--ease-out), transform 0.3s var(--ease-out);
+}
+.svc__cta svg { width: 14px; height: 14px; }
+.svc:hover .svc__cta, .svc:focus-visible .svc__cta { opacity: 1; transform: translateX(0); }
+
+.svc__note { margin-top: 1.2rem; font-size: 0.85rem; color: var(--ink-faint); }
+.svc__note a { color: var(--gold-bright); }
+
+/* ---------------------------------------------------------------
+   Team
+   --------------------------------------------------------------- */
+
+.team { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1.8rem; }
+.person {
+  display: flex; flex-direction: column; align-items: center; gap: 0.8rem;
+  text-align: center;
+  cursor: pointer;
+  border-radius: var(--radius-md);
+  padding: 0.6rem;
+  transition: transform 0.3s var(--ease-out), background-color 0.3s var(--ease-out);
+}
+.person:hover, .person:focus-visible { transform: translateY(-3px); background: var(--bg-panel); }
+
+.person__avatar {
+  position: relative;
+  width: 84px; height: 84px;
+  display: grid; place-items: center;
+  border-radius: var(--radius-full);
+  background: var(--gold-soft);
+  box-shadow: inset 0 0 0 1.5px var(--gold-line);
+  overflow: hidden;
+}
+.person__avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius-full); }
+.person--lead .person__avatar { width: 100px; height: 100px; box-shadow: inset 0 0 0 2px var(--gold-bright); }
+.person__initial { font-family: var(--font-display); font-size: 1.7rem; color: var(--gold-bright); }
+.person--lead .person__initial { font-size: 2rem; }
+.person__name { font-weight: 500; font-size: 1rem; color: var(--ink); }
+.person__rating { font-size: 0.8rem; color: var(--ink-dim); font-variant-numeric: tabular-nums; }
+.person__rating strong { color: var(--gold-bright); }
+
+/* ---------------------------------------------------------------
+   Reviews
+   --------------------------------------------------------------- */
+
+.reviews { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.4rem; }
+.review {
+  position: relative;
+  padding: 1.7rem 1.6rem;
+  background: var(--bg-panel);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm), inset 0 0 0 1px var(--line);
+  display: flex; flex-direction: column; gap: 1rem;
+}
+.review__stars { display: flex; gap: 0.2rem; color: var(--gold-bright); }
+.review__stars svg { width: 14px; height: 14px; fill: currentColor; }
+.review p { font-size: 0.97rem; color: var(--ink); flex: 1; }
+.review__meta { display: flex; justify-content: space-between; align-items: baseline; font-size: 0.81rem; color: var(--ink-dim); border-top: 1px solid var(--line); padding-top: 0.85rem; }
+.review__meta strong { color: var(--gold-bright); font-weight: 500; }
+
+/* ---------------------------------------------------------------
+   Visit / contact
+   --------------------------------------------------------------- */
+
+.visit { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 3rem; align-items: start; }
+@media (max-width: 900px) { .visit { grid-template-columns: 1fr; } }
+
+.hours { list-style: none; margin: 1.6rem 0 0; padding: 0; border-top: 1px solid var(--line); }
+.hours li { display: flex; justify-content: space-between; padding: 0.65rem 0; border-bottom: 1px solid var(--line); font-size: 0.95rem; }
+.hours li span:last-child { font-variant-numeric: tabular-nums; color: var(--ink-dim); }
+.hours li.is-today span:last-child { color: var(--gold-bright); }
+.hours li.is-today span:first-child { color: var(--ink); font-weight: 500; }
+
+.info-line { display: flex; gap: 0.7rem; align-items: flex-start; margin-top: 1.4rem; font-size: 0.92rem; color: var(--ink-dim); }
+.info-line svg { width: 18px; height: 18px; flex-shrink: 0; stroke: var(--gold-bright); margin-top: 2px; }
+
+.map {
+  position: relative;
+  aspect-ratio: 4 / 3.4;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm), inset 0 0 0 1px var(--line);
+  filter: grayscale(0.5) invert(0.9) contrast(0.86) brightness(0.95);
+}
+.map iframe { width: 100%; height: 100%; border: 0; }
+
+/* ---------------------------------------------------------------
+   Final CTA band
+   --------------------------------------------------------------- */
+
+.cta-band { position: relative; text-align: center; padding-block: clamp(4rem, 8vw, 6rem); }
+.cta-band h2 { font-size: clamp(1.95rem, 3.8vw, 2.7rem); max-width: 20ch; margin-inline: auto; margin-bottom: 1.2rem; }
+.cta-band p { color: var(--ink-dim); max-width: 46ch; margin: 0 auto 2rem; }
+
+/* ---------------------------------------------------------------
+   Footer
+   --------------------------------------------------------------- */
+
+.site-footer { border-top: 1px solid var(--line); padding-block: 2.6rem; }
+.site-footer .wrap { display: flex; flex-wrap: wrap; gap: 1.5rem; justify-content: space-between; align-items: center; }
+.footer__links { display: flex; gap: 1.6rem; list-style: none; margin: 0; padding: 0; font-size: 0.85rem; color: var(--ink-faint); }
+.footer__links a:hover { color: var(--gold-bright); }
+.footer__note { font-size: 0.85rem; color: var(--ink-faint); }
+
+/* ---------------------------------------------------------------
+   Legal pages
+   --------------------------------------------------------------- */
+
+.legal { padding-block: clamp(6rem, 10vw, 8.5rem) 5rem; position: relative; z-index: 1; }
+.legal h1 { font-size: clamp(1.9rem, 4vw, 2.4rem); margin-bottom: 2rem; }
+.legal h2 { font-size: 1.25rem; margin: 2.2rem 0 0.8rem; color: var(--gold-bright); }
+.legal p, .legal li { color: var(--ink-dim); max-width: var(--measure); }
+.legal ul { padding-left: 1.2rem; }
+.legal mark { background: var(--gold-soft); color: var(--gold-bright); font-style: normal; padding: 0.05em 0.3em; border-radius: 4px; }
