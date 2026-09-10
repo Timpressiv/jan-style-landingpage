@@ -34,18 +34,18 @@ A full-service, family-friendly hair salon and barbershop in Kaltenkirchen that 
 
 ## Capabilities and Constraints
 
-- Services confirmed via the Treatwell listing (categories and starting prices — exact current menu/pricing must be treated as indicative, not contractually fixed, and confirmed by the client before publishing):
-  - Herren – Haarschnitte & Stylings (ab 13 €), inkl. Haarschnitt & Bart/Rasur combos
-  - Kinder – Haarschnitte & Stylings (ab 17 €, bis 10 Jahre)
-  - Damen – Haarschnitte & Stylings (ab 23 €)
-  - Damen – Farbe & Coloration
-  - Haarkuren & Pflege
-  - Augenbrauen & Wimpernbehandlungen
-  - Gesichtshaarentfernung mit Fadentechnik
-  - Herren-Waxing
+- Services confirmed via the Treatwell listing (categories and starting prices — exact current menu/pricing must be treated as indicative, not contractually fixed, and confirmed by the client before publishing). Re-verified 2026-09-10 item-by-item against the live Treatwell category list after the client flagged a mislabeled price (the site had called the 13€ item "Haarschnitt & Waschen" when 13€ is actually "Bart trimmen"; the real "Haarschnitt & Waschen" is 25€ — fixed on the page, and every other category's displayed "ab" price was cross-checked and confirmed accurate at the same time):
+  - Herren – Haarschnitte & Stylings (ab 13 €, Bart trimmen; Haarschnitt & Waschen 25 €; Haarschnitt & Rasur 40 €)
+  - Kinder – Haarschnitte & Stylings (ab 17 €, Jungen bis 10 Jahre; Mädchen-Varianten 18–28 €)
+  - Damen – Haarschnitte & Stylings (ab 23 €, Waschen & Föhnen)
+  - Damen – Farbe & Coloration (ab 35 €, Glossing; up to 190 €+ for Balayage)
+  - Haarkuren & Pflege (ab 7 €, Spülung)
+  - Augenbrauen & Wimpernbehandlungen (ab 8 €)
+  - Gesichtshaarentfernung mit Fadentechnik (ab 5 €, Oberlippe)
+  - Herren-Waxing (ab 5 €, Ohren/Nase einzeln; Gesicht/Nase & Ohren kombiniert 10 €)
 - No independent online booking, contact form, or CRM — Treatwell is the single source of truth for availability and bookings. The landing page should link out to Treatwell for booking rather than reimplement it.
 - Confirmed technical constraint: Treatwell's own listing has no shareable per-service or per-stylist deep-link URLs — booking runs entirely inside a JS widget (services are "Auswählen" buttons, team members are tabs that just switch content in place), not distinct routes. Every "book this service" / "book with this stylist" click on the landing page therefore goes to the same general listing URL (`https://www.treatwell.de/ort/jan-style/`); this is not a shortcut, it is the only link Treatwell exposes. Re-verified 2026-09-10 by reading Treatwell's own venue-page JS bundle directly: category clicks carry an internal `menuGroupId` used only for analytics, never read from the URL; the only URL parameter the widget reads at all is `rwg_token` (a Google Reserve tracking param, unrelated). No employee/staff selection parameter exists either. If the client asks again, this has been checked at the source-code level, not just by observation.
-- No confirmed direct phone number or email independent of Treatwell at this time — do not invent one; if the client supplies one later it can be added.
+- Direct phone number confirmed 2026-09-10 (sourced from the salon's own Google Business Profile, shown to the assistant by the client): 04191 9560503. Wired into the page's contact section. No confirmed email independent of Treatwell yet — do not invent one.
 - Language: German only.
 - Open/undecided: exact final service list and prices are Treatwell's live data, not fixed content on the page — either link/embed Treatwell where feasible, or clearly present the on-page list as "ab"-pricing examples that mirror Treatwell rather than a fixed menu the client must manually keep in sync.
 
