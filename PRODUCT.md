@@ -35,7 +35,7 @@ A full-service, family-friendly hair salon and barbershop in Kaltenkirchen that 
 ## Capabilities and Constraints
 
 - Services confirmed via the Treatwell listing (categories and starting prices — exact current menu/pricing must be treated as indicative, not contractually fixed, and confirmed by the client before publishing). Re-verified 2026-09-10 item-by-item against the live Treatwell category list after the client flagged a mislabeled price (the site had called the 13€ item "Haarschnitt & Waschen" when 13€ is actually "Bart trimmen"; the real "Haarschnitt & Waschen" is 25€ — fixed on the page, and every other category's displayed "ab" price was cross-checked and confirmed accurate at the same time):
-  - Herren – Haarschnitte & Stylings (ab 13 €, Bart trimmen; Haarschnitt & Waschen 25 €; Haarschnitt & Rasur 40 €)
+  - Herren – Haarschnitte & Stylings (ab 13 €, Bart trimmen; Trockenhaarschnitt 22 €; Haarschnitt & Rasur 40 €)
   - Kinder – Haarschnitte & Stylings (ab 17 €, Jungen bis 10 Jahre; Mädchen-Varianten 18–28 €)
   - Damen – Haarschnitte & Stylings (ab 23 €, Waschen & Föhnen)
   - Damen – Farbe & Coloration (ab 35 €, Glossing; up to 190 €+ for Balayage)
