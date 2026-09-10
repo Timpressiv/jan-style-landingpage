@@ -29,7 +29,7 @@ A full-service, family-friendly hair salon and barbershop in Kaltenkirchen that 
 - Located at Hamburger Straße 49, 24568 Kaltenkirchen, Germany.
 - Opening hours: Mo–Fr 09:00–19:00, Sa 09:00–18:00, closed Sundays (source: Treatwell listing; must be confirmed by client before publishing and kept easy to edit).
 - All bookings and reviews currently run exclusively through Treatwell — the salon has no independent booking system. Primary CTA throughout the page must route to the Treatwell booking page: https://www.treatwell.de/ort/jan-style/
-- Payment at the salon: cash only, per the Treatwell listing (informational; not necessarily page content).
+- Payment at the salon: cash or card (updated 2026-09-10 per client; the page's contact section states this directly).
 - Multi-person team confirmed via Treatwell (first names, individually bookable, each with their own rating): Jan, Falah, Reza, Mirela, Ben, Bahast, Ali.
 
 ## Capabilities and Constraints
@@ -44,7 +44,7 @@ A full-service, family-friendly hair salon and barbershop in Kaltenkirchen that 
   - Gesichtshaarentfernung mit Fadentechnik
   - Herren-Waxing
 - No independent online booking, contact form, or CRM — Treatwell is the single source of truth for availability and bookings. The landing page should link out to Treatwell for booking rather than reimplement it.
-- Confirmed technical constraint: Treatwell's own listing has no shareable per-service or per-stylist deep-link URLs — booking runs entirely inside a JS widget (services are "Auswählen" buttons, team members are tabs that just switch content in place), not distinct routes. Every "book this service" / "book with this stylist" click on the landing page therefore goes to the same general listing URL (`https://www.treatwell.de/ort/jan-style/`); this is not a shortcut, it is the only link Treatwell exposes.
+- Confirmed technical constraint: Treatwell's own listing has no shareable per-service or per-stylist deep-link URLs — booking runs entirely inside a JS widget (services are "Auswählen" buttons, team members are tabs that just switch content in place), not distinct routes. Every "book this service" / "book with this stylist" click on the landing page therefore goes to the same general listing URL (`https://www.treatwell.de/ort/jan-style/`); this is not a shortcut, it is the only link Treatwell exposes. Re-verified 2026-09-10 by reading Treatwell's own venue-page JS bundle directly: category clicks carry an internal `menuGroupId` used only for analytics, never read from the URL; the only URL parameter the widget reads at all is `rwg_token` (a Google Reserve tracking param, unrelated). No employee/staff selection parameter exists either. If the client asks again, this has been checked at the source-code level, not just by observation.
 - No confirmed direct phone number or email independent of Treatwell at this time — do not invent one; if the client supplies one later it can be added.
 - Language: German only.
 - Open/undecided: exact final service list and prices are Treatwell's live data, not fixed content on the page — either link/embed Treatwell where feasible, or clearly present the on-page list as "ab"-pricing examples that mirror Treatwell rather than a fixed menu the client must manually keep in sync.
