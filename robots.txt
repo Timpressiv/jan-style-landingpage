@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://jan-style-barbershop.de/sitemap.xml
